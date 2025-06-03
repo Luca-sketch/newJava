@@ -1,0 +1,109 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Main extends Application{
+
+    public void start(Stage primaryStage){
+        Label titulo = new Label("Soma");
+        TextField campo1 = new TextField();
+        campo1.setPromptText("Digite o primeiro numero");
+
+        TextField campo2 = new TextField();
+        campo2.setPromptText("Digite o segundo numero");
+
+        int numero11=0;
+        int numero22=0;
+        boolean status=false;
+
+
+        // Criando os botões numéricos
+        Button sete = new Button("7");
+        Button oito = new Button("8");
+        Button nove = new Button("9");
+        Button quatro = new Button("4");
+        Button cinco = new Button("5");
+        Button seis = new Button("6");
+        Button um = new Button("1");
+        Button dois = new Button("2");
+        Button tres = new Button("3");
+        Button mais = new Button("+");
+        Button menos = new Button("-");
+        Button multiplica = new Button("*");
+        Button dividir = new Button("/");
+        Button botao = new Button("Calcular");
+
+        // Layout para os botões numéricos
+        GridPane grade = new GridPane();
+        grade.setHgap(10); // Espaçamento horizontal
+        grade.setVgap(10); // Espaçamento vertical
+
+
+        // Colocando os botões na grade
+        grade.add(sete, 0, 0);
+        grade.add(oito, 1, 0);
+        grade.add(nove, 2, 0);
+        grade.add(mais, 3, 0);
+        grade.add(quatro, 0, 1);
+        grade.add(cinco, 1, 1);
+        grade.add(seis, 2, 1);
+        grade.add(menos,3,1);
+        grade.add(um, 0, 2);
+        grade.add(dois, 1, 2);
+        grade.add(tres, 2, 2);
+        grade.add(multiplica,3,2);
+        grade.add(botao,3,3);
+        grade.add(dividir,0,3);
+
+        Label resultado=new Label();
+
+        um.setOnAction(digiar1 ->{campo1.setText("1");});
+        dois.setOnAction(digiar1 ->{campo1.setText("2");});
+        tres.setOnAction(digiar1 ->{campo1.setText("3");});
+        quatro.setOnAction(digiar1 ->{campo1.setText("4");});
+        cinco.setOnAction(digiar1 ->{campo1.setText("5");});
+        seis.setOnAction(digiar1 ->{campo1.setText("6");});
+        sete.setOnAction(digiar1 ->{campo1.setText("7");});
+        oito.setOnAction(digiar1 ->{campo1.setText("8");});
+        nove.setOnAction(digiar1 ->{campo1.setText("9");});
+        mais.setOnAction(event -> {campo1.setText("+");});
+        menos.setOnAction(digiar1 ->{campo1.setText(campo1.getText()+"-");});
+        multiplica.setOnAction(digiar1 ->{campo1.setText(campo1.getText()+"*");});
+        dividir.setOnAction(digiar1 ->{campo1.setText(campo1.getText()+"/");});
+
+        botao.setOnAction(evento ->{
+            try{
+                double numero1 = Double.parseDouble(campo1.getText());
+                double numero2 = Double.parseDouble(campo2.getText());
+                double soma = numero1+numero2;
+                resultado.setText("O resultado é "+soma);
+            }catch (NumberFormatException exception){
+                resultado.setText("O numero não é valido");
+                campo1.setText("");
+                campo2.setText("");
+            };
+        });
+
+        // Layout principal
+        VBox vertical = new VBox(10);
+        vertical.getChildren().addAll(titulo, campo1, campo2,grade, botao, resultado);
+
+        // Criando a cena
+        Scene scene = new Scene(vertical, 300, 350); // Ajustado para a altura necessária
+
+        // Configurando a janela
+        primaryStage.setTitle("Calculadora");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main (String[] args){
+        launch(args);
+    }
+}
